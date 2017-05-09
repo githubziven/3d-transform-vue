@@ -2,12 +2,11 @@
 
 <template>
   <div class="box">
-    <a id="sss" >
-    <div class="box-container" ref="i" :style="containerTransform" >
-      <span class="box-container__text" :style="textTransform">{{text}}</span>
-      <img src="./images/pic02.png" alt="" class="box-container__img" />
+    <div id="box-view" style="perspective: 900px" >
+    <div class="box-container" :style="isActive?containerTransform:''" ref="i"  > <!--:style="containerTransform"-->
+      <span class="box-container__text" :style="isActive?textTransform:''">{{text}}</span>
     </div>
-    </a>
+    </div>
   </div>
 </template>
 
@@ -16,11 +15,11 @@ export default {
   data() {
     return {
       text: "3d-transform效果小demo",
-      containerTransform: {
-        display: 'block',
-        transform: 'rotate3d(0,0,0,0deg)',
-        outline: '1px solid transparent'//消除火狐3d效果产生的锯齿
-      },
+      isActive:false,
+      containerTransform:
+        {transform:'rotate3d(0,0,0,5deg)'}
+    ,
+      outline: '1px solid transparent',//消除火狐3d效果产生的锯齿
       textTransform: {
         transform: 'transloateX(0px) translateY(0px)'
       }
@@ -28,12 +27,12 @@ export default {
     }
   },
   mounted: function(){
-    let that=this
-     document.getElementById("sss").addEventListener("mousemove",that.onTrans3D,false)
-     document.getElementById("sss").addEventListener("mouseout",that.onReset,false)
+     document.getElementById("sss").addEventListener("mousemove",this.onTrans3D,false)
+     document.getElementById("sss").addEventListener("mouseout",this.onReset,false)
   },
   methods: {
     onTrans3D() {
+      console.log(111)
       let rect = this.$refs.i.getBoundingClientRect() //获取card位置属性
       var xl = this.$refs.i.clientWidth / 2 //获取card宽度
       var yl = this.$refs.i.clientHeight / 2 //获取card高度
@@ -49,13 +48,15 @@ export default {
       px = (yl - ym) / yl
       py = (xm - xl) / xl
       var pz = 0
-      var rotate = "rotate3d(" + px + "," + py + "," + pz + ",15deg)"
-      this.containerTransform.transform = rotate
-      console.log(rotate)
+      let rotate = "rotate3d(" + px + "," + py + "," + pz + ",10deg)"
+      var translate = 'translateX(' + py*10+ 'px) translateY(' + (-px*10) + 'px)'
+      this.containerTransform.transform=rotate
+      this.textTransform.transform=translate
+      this.isActive=true
+  
     },
     onReset() {
-      var rotate = "rotate3d(0,0,0,15deg)"
-      this.containerTransform.transform = rotate
+      this.isActive=false
     }
   }
 }
@@ -72,7 +73,11 @@ export default {
   &-container {
     position: relative;
     border: 0;
-    transition: all 0.2s ease;
+    width:480px;
+    height: 270px;
+    transition: all 0.2s ;
+    background: url('./images/pic03.png');
+    transform-origin:50% 50%;
     &__text {
       position: absolute;
       color: #fff;
@@ -81,18 +86,9 @@ export default {
       text-shadow: 2px 2px 2px #000;
       bottom: 40px;
       left: 20px;
-      transition: all 0.2s ease;
+      transition: all 0.2s ;
       z-index: 100;
     }
-    &__img {
-      display: block;
-      transform: all 0.2s ease;
-    }
   }
-}
-#sss{
-  perspective: 800px;
-  perspective-origin: 50% 50%;
-  transform-style: preserve-3d;
 }
 </style>
