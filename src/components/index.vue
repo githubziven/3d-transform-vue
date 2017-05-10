@@ -27,8 +27,8 @@ export default {
     }
   },
   mounted: function(){
-     document.getElementById("sss").addEventListener("mousemove",this.onTrans3D,false)
-     document.getElementById("sss").addEventListener("mouseout",this.onReset,false)
+     document.getElementById("box-view").addEventListener("mousemove",this.onTrans3D,false)
+     document.getElementById("box-view").addEventListener("mouseout",this.onReset,false)
   },
   methods: {
     onTrans3D() {
