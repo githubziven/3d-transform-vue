@@ -3,20 +3,29 @@ var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    // app: './src/main.js'
+    main:'./src/3d-transform-vue.js'
   },
   output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
+    // path: config.build.assetsRoot,
+    // filename: '[name].js',
+    // library: '3d-transform-vue',
+    // libraryTarget: 'commonjs2',
+    // publicPath: process.env.NODE_ENV === 'production'
+    //   ? config.build.assetsPublicPath
+    //   : config.dev.assetsPublicPath
+            path: path.resolve(__dirname, '../dist'),
+        publicPath: '/dist/',
+        filename: '3d-transform-vue.js',
+        library: '3d-transform-vue',
+        libraryTarget: 'umd',
+        umdNamedDefine: true
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -63,8 +72,8 @@ module.exports = {
         }
       },
       {
-        test:/\.s[a|c]ss$/,
-        loader:'style!css!sass'
+        test: /\.s[a|c]ss$/,
+        loader: 'style!css!sass'
       }
     ]
   }

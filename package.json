@@ -1,9 +1,10 @@
 {
+  "main": "dist/3d-transform-vue.js",
   "name": "3d-transform-vue",
   "version": "1.0.0",
   "description": "a vue.js project about 3d-transform",
   "author": "githubziven <1240500584@qq.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
